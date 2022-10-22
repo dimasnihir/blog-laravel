@@ -12,7 +12,6 @@ class StoreController extends Controller
 {
     public function __invoke(StoreRequest $request)
     {
-        try {
             $date = $request->validated();
             $tag_ids = $date['tag_ids'];
             unset($date['tag_ids']);
@@ -21,9 +20,6 @@ class StoreController extends Controller
             $post = Post::firstOrcreate($date);
             $post->tags()->attach($tag_ids);
 
-        } catch (\Exception $exception) {
-            abort(404);
-        }
         return redirect()->route('admin.post.index');
     }
 }
