@@ -7,14 +7,15 @@ use App\Http\Requests\Admin\Post\UpdateRequest;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
     public function __invoke(UpdateRequest $request, Post $post)
     {
         // TODO: Implement __invoke() method.
         $data = $request->validated();
-        $post->update($data);
-        return redirect()->route('admin.post.show', $post->id);
+        $this->service->update($data, $post);
+        return redirect()->route('admin.post.index');
     }
 }
